@@ -81,7 +81,7 @@ class OdooVersion(Version):
             other = str(other)  # Works with distutils' Version classes
 
         other = self.__class__(other)
-	return self.components == other.components
+        return self.components == other.components
 
     def __ne__(self, other):
         if isinstance(other, tuple):
@@ -127,6 +127,7 @@ class OdooVersion(Version):
 
         other = self.__class__(other)
         return self.components >= other.components
+
 
 class Session(object):
     """A class to give server-level access to one database.
