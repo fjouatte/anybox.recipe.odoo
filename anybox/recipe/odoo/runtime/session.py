@@ -62,6 +62,7 @@ class OdooVersion(Version):
     def __repr__(self):
         return 'OdooVersion(%r)' % str(self)
 
+    """
     def __cmp__(self, other):
         if isinstance(other, tuple):
             other = '.'.join(str(s) for s in other)
@@ -71,7 +72,61 @@ class OdooVersion(Version):
         other = self.__class__(other)
         return ((self.components > other.components) -
                 (self.components < other.components))
+    """
 
+    def __eq__(self, other):
+        if isinstance(other, tuple):
+            other = '.'.join(str(s) for s in other)
+        elif not isinstance(other, self.__class__):
+            other = str(other)  # Works with distutils' Version classes
+
+        other = self.__class__(other)
+	return self.components == other.components
+
+    def __ne__(self, other):
+        if isinstance(other, tuple):
+            other = '.'.join(str(s) for s in other)
+        elif not isinstance(other, self.__class__):
+            other = str(other)  # Works with distutils' Version classes
+
+        other = self.__class__(other)
+        return not (self.components == other.components)
+
+    def __lt__(self, other):
+        if isinstance(other, tuple):
+            other = '.'.join(str(s) for s in other)
+        elif not isinstance(other, self.__class__):
+            other = str(other)  # Works with distutils' Version classes
+
+        other = self.__class__(other)
+        return self.components < other.components
+
+    def __gt__(self, other):
+        if isinstance(other, tuple):
+            other = '.'.join(str(s) for s in other)
+        elif not isinstance(other, self.__class__):
+            other = str(other)  # Works with distutils' Version classes
+
+        other = self.__class__(other)
+        return self.components > other.components
+
+    def __le__(self, other):
+        if isinstance(other, tuple):
+            other = '.'.join(str(s) for s in other)
+        elif not isinstance(other, self.__class__):
+            other = str(other)  # Works with distutils' Version classes
+
+        other = self.__class__(other)
+        return self.components <= other.components
+
+    def __ge__(self, other):
+        if isinstance(other, tuple):
+            other = '.'.join(str(s) for s in other)
+        elif not isinstance(other, self.__class__):
+            other = str(other)  # Works with distutils' Version classes
+
+        other = self.__class__(other)
+        return self.components >= other.components
 
 class Session(object):
     """A class to give server-level access to one database.
